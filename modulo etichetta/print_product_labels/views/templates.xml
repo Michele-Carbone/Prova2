@@ -1,0 +1,56 @@
+<odoo>
+  <data>
+    <!-- <report 
+    id="report_esercizioetichette" 
+    model="print_product_labels.print_product_labels" 
+    string="Esercizioetichette Report" 
+    name="print_product_labels.print_product_labels_report" 
+    file="print_product_labels.templates" 
+    report_type="qweb-pdf"/>
+
+
+    <template id="print_product_labels_report">
+      <t t-call="web.html_container">
+      <!- <t t-call="web.basic_layout"> ->
+        <t t-foreach="docs" t-as="doc">
+          <t t-call="web.external_layout">
+            <div class="page">
+              <!- <h2 t-field="doc.name"/> ->
+              <p>
+                <span t-field="doc.cliente.name"/>
+                <span t-field="doc.prodotto"/>
+                <span t-field="doc.prodotto.default_code"/>
+              </p>
+            </div>
+          </t>
+        </t>
+      </t>
+    </template> -->
+
+    <!-- <template id="listing">
+      <ul>
+        <li t-foreach="objects" t-as="object">
+          <a t-attf-href="#{ root }/objects/#{ object.id }">
+            <t t-esc="object.display_name"/>
+          </a>
+        </li>
+      </ul>
+    </template>
+    <template id="object">
+      <h1>
+        <t t-esc="object.display_name"/>
+      </h1>
+      <dl>
+        <t t-foreach="object._fields" t-as="field">
+          <dt>
+            <t t-esc="field"/>
+          </dt>
+          <dd>
+            <t t-esc="object[field]"/>
+          </dd>
+        </t>
+      </dl>
+    </template> -->
+
+  </data>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- <record id="paperformat_38x100" model="report.paperformat"> -->
+        <record id="paperformat_35x55" model="report.paperformat">
+            <!-- <field name="name">38 x 100</field> -->
+            <!-- Vineria dimensioni 5.5 x 3.5 -->
+            <field name="name">35 x 55</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <!-- <field name="page_height">38</field> -->
+            <field name="page_height">35</field>
+            <!-- <field name="page_width">100</field> -->
+            <field name="page_width">55</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">1</field>
+            <field name="margin_bottom">1</field>
+            <field name="margin_left">1</field>
+            <field name="margin_right">1</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+</odoo>

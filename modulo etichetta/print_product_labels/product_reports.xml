@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <!--ir.actions.report Esiste come ricerca Tipo di Azione -->
+        <!-- <record id="report_product_label" model="ir.actions.report"> -->
+        <record id="report_product_label" model="ir.actions.report">
+            <field name="name">Etichetta custom (PDF)</field>
+            <!-- il modello di cui parlerà il tuo rapporto -->
+            <!-- <field name="model">product.product</field> -->
+            <field name="model">product.template</field>
+            <!-- sia qweb-pdfper report PDF che qweb-htmlper HTML -->
+            <field name="report_type">qweb-pdf</field>
+            <!-- il nome ( external id ) del modello qweb utilizzato per il rendering del report -->
+            <field name="report_name">print_product_labels.report_productlabel_custom</field>
+            <field name="report_file">print_product_labels.report_productlabel_custom</field>
+            <!-- espressione python che definisce il nome del report -->
+            <field name="print_report_name">'Etichetta custom - %s' % (object.name)</field>
+            <!-- va inserito il modello su dove vogliamo che compaia il print, nome del modello lo troviamo nella barra di navigazione dove c'è scritto model=product.template
+            questo vale per tutte le volte. Basta andare nella sezione che ci interessa tramite la navigazione -->
+            <field name="binding_model_id" ref="product.model_product_template"/>
+            <!-- Specifica che l'azione verrà visualizzata nel menu contestuale Stampa del modello associato -->
+            <field name="binding_type">report</field>
+            <!-- Many2one al formato cartaceo che si desidera utilizzare per questo report (se non specificato verrà utilizzato il formato aziendale) -->
+            <field name="paperformat_id" ref="print_product_labels.paperformat_38x100"/>
+        </record>
+    </data>
+</odoo>
