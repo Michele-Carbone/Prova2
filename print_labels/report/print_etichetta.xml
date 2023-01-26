@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="print_label_product_id_report">
+            <div class="row">
+                <div class="col-12">
+                    <p t-field="product.display_name" style="text-align:center; font-size:14px;"/>
+                </div>
+                <div class="col-12" t-if="product.description_sale" style="margin-top:-10px;">
+                    <t t-if="product.description_sale">
+                        <p t-field="product.description" style="text-align:center; font-size:14px;"/>
+                    </t>
+                </div>
+            </div>
+            <div style="text-align:center;">
+                <strong t-esc="product.get_price()" style="font-size:14px;"/>
+            </div>
+            <div class="text-center align-middle" style="margin-top:20px;">
+                <t t-if="product.barcode">
+                    <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 1000, 200)" style="width:520px;height:80px;margin-top:15px;margin-left:-90px;"/>
+                    <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 1000, 200)" style="width:520px;height:80px;margin-top:15px;margin-left:-90px;"/>
+                    <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 1000, 200)" style="width:520px;height:80px;margin-top:15px;margin-left:-90px;"/>
+                    <p t-field="product.barcode" style="font-size:10px; text-align:center;"/>
+                </t>
+                <t t-else="">
+                    <p class="text-muted" style="text-align:center;">Nessun codice a<br/>
+barre disponibile</p>
+                </t>
+            </div>
+            <div style="page-break-after:always;" />
+        </template>
+
+
+        <template id="report_productlabel_custom">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="product">
+                    <div class="page">
+                        <t t-call="print_labels.print_label_product_id_report">
+                            <t t-set="product" t-value="product"/>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
