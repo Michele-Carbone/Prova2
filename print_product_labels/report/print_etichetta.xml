@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Etichetta fronte contenente il Nome del prodotto e il Prezzo -->
+        <template id="print_label_product_id_report">
+            <div class="row myclass">
+                <div class="col-12 mt-4 product-name">
+                    <p t-field="product.display_name" style="font-family: 'Domine', serif; text-align:center; font-size:30px; margin-top:10px; "/>
+                </div>
+                <div class="col-12" t-if="product.description_sale" style="margin-top:10px; ">
+                    <t t-if="product.description_sale">
+                        <p t-field="product.description" style="font-family: 'Domine', serif; text-align:center; font-size:30px;"/>
+                    </t>
+                </div>
+            </div>
+            <div class="mt-4" style="margin-top:10px; text-align:center;">
+                <strong t-esc="product.get_price()" style="font-family: 'Domine', serif; font-size:40px;"/>
+            </div>
+            <div style="page-break-after:always;" />
+        </template>
+
+        <!-- Etichetta retro contenente il codice a barre e il numero del codice -->
+        <template id="print_label_product_id_report_back">
+            <div class="col-12" style="margin-top:20px;">
+                <t t-if="product.barcode">
+                    <img alt="Barcode" t-if="len(product.barcode) == 13" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', quote_plus(product.barcode or ''), 600, 200)" style="width:500px;height:auto;margin-top:20px; margin-left:-80px;"/>
+                    <img alt="Barcode" t-elif="len(product.barcode) == 8" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', quote_plus(product.barcode or ''), 600, 200)" style="width:500px;height:auto;margin-top:20px; margin-left:-80px;"/>
+                    <img alt="Barcode" t-else="" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', quote_plus(product.barcode or ''), 600, 200)" style="width:500px;height:auto;margin-top:20px; margin-left:-80px;"/>
+                </t>
+                <t t-else="">
+                    <p class="text-muted" style="text-align:center;">Nessun codice a<br/>
+barre disponibile</p>
+                </t>
+                <p t-field="product.barcode" style="font-family: 'Domine', serif; font-size:20px; text-align:center; margin-top:5px;"/>
+            </div>
+            <div style="page-break-after:always;" />
+        </template>
+
+        <template id="report_productlabel_custom">
+            <t t-call="web.basic_layout">
+                <link rel="stylesheet" href="/print_product_labels/static/src/css/custom.css"/>
+                <t t-foreach="docs" t-as="product">
+                    <div class="page">
+                        <t t-call="print_product_labels.print_label_product_id_report">
+                            <t t-set="product" t-value="product"/>
+                        </t>
+                        <t t-call="print_product_labels.print_label_product_id_report_back">
+                            <t t-set="product" t-value="product"/>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
